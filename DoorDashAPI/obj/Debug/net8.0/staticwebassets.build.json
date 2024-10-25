@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "4jvInZt1yhdXzq89j7QrwNDyNaC7Bi5XxoOG/FyM6OY=",
+  "Source": "DoorDashAPI",
+  "BasePath": "_content/DoorDashAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "DoorDashAPI\\wwwroot",
+      "Source": "DoorDashAPI",
+      "ContentRoot": "D:\\Coding Projects\\DoorDash\\backend\\DoorDashAPI\\wwwroot\\",
+      "BasePath": "_content/DoorDashAPI",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}
