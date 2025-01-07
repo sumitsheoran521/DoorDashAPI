@@ -1,15 +1,124 @@
 [
   {
-    "ContainingType": "DoorDashAPI.Controllers.RestaurantController",
-    "Method": "GetAllRestaurants",
-    "RelativePath": "api/Restaurant",
+    "ContainingType": "DoorDashAPI.Controllers.DishController",
+    "Method": "GetDishes",
+    "RelativePath": "api/Dish",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[DoorDashAPI.Models.Restaurant, DoorDashAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "DoorDashAPI.Models.Dish",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoorDashAPI.Controllers.DishController",
+    "Method": "AddDish",
+    "RelativePath": "api/Dish",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dish",
+        "Type": "DoorDashAPI.Models.Dish",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoorDashAPI.Models.Dish",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoorDashAPI.Controllers.DishController",
+    "Method": "GetDishById",
+    "RelativePath": "api/Dish/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoorDashAPI.Models.Dish",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoorDashAPI.Controllers.DishController",
+    "Method": "UpdateDish",
+    "RelativePath": "api/Dish/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dish",
+        "Type": "DoorDashAPI.Models.Dish",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoorDashAPI.Models.Dish",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoorDashAPI.Controllers.DishController",
+    "Method": "DeleteDish",
+    "RelativePath": "api/Dish/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoorDashAPI.Models.Dish",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -21,7 +130,27 @@
   },
   {
     "ContainingType": "DoorDashAPI.Controllers.RestaurantController",
-    "Method": "CreateRestaurant",
+    "Method": "GetRestaurants",
+    "RelativePath": "api/Restaurant",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "DoorDashAPI.Models.Restaurant",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoorDashAPI.Controllers.RestaurantController",
+    "Method": "AddRestaurant",
     "RelativePath": "api/Restaurant",
     "HttpMethod": "POST",
     "IsController": true,
@@ -47,20 +176,15 @@
   },
   {
     "ContainingType": "DoorDashAPI.Controllers.RestaurantController",
-    "Method": "UpdateRestaurant",
-    "RelativePath": "api/Restaurant",
-    "HttpMethod": "PUT",
+    "Method": "GetRestaurant",
+    "RelativePath": "api/Restaurant/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "restaurant",
-        "Type": "DoorDashAPI.Models.Restaurant",
         "IsRequired": true
       }
     ],
@@ -78,35 +202,30 @@
   },
   {
     "ContainingType": "DoorDashAPI.Controllers.RestaurantController",
-    "Method": "DeleteRestaurant",
-    "RelativePath": "api/Restaurant",
-    "HttpMethod": "DELETE",
+    "Method": "UpdateRestaurant",
+    "RelativePath": "api/Restaurant/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
+      },
+      {
+        "Name": "restaurant",
+        "Type": "DoorDashAPI.Models.Restaurant",
+        "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "DoorDashAPI.Models.Restaurant",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "DoorDashAPI.Controllers.RestaurantController",
-    "Method": "GetRestaurantById",
+    "Method": "DeleteRestaurant",
     "RelativePath": "api/Restaurant/{id}",
-    "HttpMethod": "GET",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [

@@ -1,129 +1,121 @@
-﻿using DoorDashAPI.Interface;
+﻿
+using DoorDashAPI.Interfaces;
 using DoorDashAPI.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Authentication;
+using Microsoft.AspNetCore.Mvc;
 
-namespace DoorDashAPI.Service
+namespace DoorDashAPI.Services
 {
-    public class RestaurantService : IRestaunrant
+    public class RestaurantService : IRestaurantRepository
     {
-        private readonly DoorDashContext _context;
+        private readonly IRestaurantRepository _restaurantRepository;
 
-        public RestaurantService(DoorDashContext context)
+        public RestaurantService(IRestaurantRepository restaurantRepository)
         {
-            _context = context;
+            _restaurantRepository = restaurantRepository;
         }
 
-        public async Task<List<Restaurant>> GetRestaurants()
-        {
-            try
-            {
-                var restaurants = await _context.Restaurant.Include(r => r.Cuisines).ToListAsync();
 
-                restaurants.ForEach(r => r.UpdateIsOpenStatus());
-                await _context.SaveChangesAsync();
-                return restaurants;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while retrieving restaurants.", ex);
-            }
-        }
-
-        public async Task<Restaurant> GetRestaurantById(int id)
+        // Get all restaurants
+        public async Task<IEnumerable<Restaurant>> GetAllRestaurantAsync()
         {
-            try
+            var restaurants = await _restaurantRepository.GetAllRestaurantAsync();
+            var restaurantDtos = new List<Restaurant>();
+
+            foreach (var restaurant in restaurants)
             {
-                var restaurant = await _context.Restaurant
-                    .Include(r => r.Cuisines)
-                    .Include(r => r.Dishes)
-                    .FirstOrDefaultAsync(e => e.RestaurantId == id) 
-                    ?? throw new AuthenticationException("No restaurant with this ID");
-                
-                if (restaurant == null)
+                restaurantDtos.Add(new Restaurant
                 {
-                    throw new InvalidOperationException("No restaurant found with this ID.");
-                }
-                restaurant.UpdateIsOpenStatus();
-                await _context.SaveChangesAsync();
-                return restaurant;
+                    RestaurantId = restaurant.RestaurantId,
+                    Name = restaurant.Name,
+                    Area = restaurant.Area,
+                    IsVeg = restaurant.IsVeg,
+                    IsOpen = IsRestaurantOpen(restaurant.OpeningHour, restaurant.ClosingHour),
+                    AverageRating = restaurant.AverageRating,
+                    CostForTwo = restaurant.CostForTwo,
+                    RestaurantImage = restaurant.RestaurantImage,
+                    EstimatedDeliveryTime = restaurant.EstimatedDeliveryTime,
+
+                });
             }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while retrieving the restaurant by ID.", ex);
-            }
+            return restaurantDtos;
         }
 
-        public async Task<Restaurant> CreateRestaurant(Restaurant restaurant)
+        // Get restaurant by id
+        public async Task<Restaurant> GetRestaurantByIdAsync(int id)
         {
-            try
+            var restaurant = await _restaurantRepository.GetRestaurantByIdAsync(id);
+            if (restaurant == null) return null!;
+
+            return new Restaurant
             {
-                await _context.AddAsync(restaurant);
-                await _context.SaveChangesAsync();
-                return restaurant;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while creating the restaurant.", ex);
-            }
+                RestaurantId = restaurant.RestaurantId,
+                Name = restaurant.Name,
+                Area = restaurant.Area,
+                IsVeg = restaurant.IsVeg,
+                IsOpen = IsRestaurantOpen(restaurant.OpeningHour, restaurant.ClosingHour),
+                AverageRating = restaurant.AverageRating,
+                CostForTwo = restaurant.CostForTwo,
+                RestaurantImage = restaurant.RestaurantImage,
+                EstimatedDeliveryTime = restaurant.EstimatedDeliveryTime,
+            };
         }
 
-        public async Task<Restaurant> UpdateRestaurant(int id, Restaurant restaurant)
+        // Add a new restaurant
+        public async Task<Restaurant> AddRestaurantAsync(Restaurant restaurantDto)
         {
-            try
+            var restaurant = new Restaurant
             {
-                var existingRestaurant = await _context.Restaurant.FirstOrDefaultAsync(e => e.RestaurantId == id);
-                if (existingRestaurant == null)
-                {
-                    throw new InvalidDataException("No restaurant found with this ID.");
-                }
-
-                existingRestaurant.Name = restaurant.Name;
-                existingRestaurant.Area = restaurant.Area;
-                existingRestaurant.ContactNumber = restaurant.ContactNumber;
-                existingRestaurant.IsVeg = restaurant.IsVeg;
-                existingRestaurant.AverageRating = restaurant.AverageRating;
-                existingRestaurant.CostForTwo = restaurant.CostForTwo;
-                existingRestaurant.OpeningHour = restaurant.OpeningHour;
-                existingRestaurant.ClosingHour = restaurant.ClosingHour;
-                existingRestaurant.RestaurantImage = restaurant.RestaurantImage;
-                existingRestaurant.City = restaurant.City;
-                existingRestaurant.State = restaurant.State;
-                existingRestaurant.RestaurantLink = restaurant.RestaurantLink;
-                existingRestaurant.EstimatedDeliveryTime = restaurant.EstimatedDeliveryTime;
-
-                // Update IsOpen status
-                existingRestaurant.UpdateIsOpenStatus();
-
-                await _context.SaveChangesAsync();
-                return existingRestaurant;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while updating the restaurant.", ex);
-            }
+                Name = restaurantDto.Name,
+                Area = restaurantDto.Area,
+                City = restaurantDto.City,
+                State = restaurantDto.State,
+                IsVeg = restaurantDto.IsVeg,
+                IsOpen = restaurantDto.IsOpen,
+                OpeningHour = restaurantDto.OpeningHour,
+                ClosingHour = restaurantDto.ClosingHour,
+                AverageRating = restaurantDto.AverageRating,
+                CostForTwo = restaurantDto.CostForTwo,
+                ContactNumber = restaurantDto.ContactNumber,
+                RestaurantImage = restaurantDto.RestaurantImage,
+                EstimatedDeliveryTime = restaurantDto.EstimatedDeliveryTime,
+            };
+            var createdRestaurant = await _restaurantRepository.AddRestaurantAsync(restaurant);
+            return restaurantDto;
         }
 
-        public async Task<Restaurant> DeleteRestaurant(int id)
+        // Update a restaurant
+        public async Task<bool> UpdateRestaurantAsync(Restaurant restaurantDto)
         {
-            try
+            var restaurant = new Restaurant
             {
-                var restaurant = await _context.Restaurant.FirstOrDefaultAsync(e => e.RestaurantId == id);
+                Name = restaurantDto.Name,
+                Area = restaurantDto.Area,
+                City = restaurantDto.City,
+                State = restaurantDto.State,
+                IsVeg = restaurantDto.IsVeg,
+                IsOpen = restaurantDto.IsOpen,
+                OpeningHour = restaurantDto.OpeningHour,
+                ClosingHour = restaurantDto.ClosingHour,
+                AverageRating = restaurantDto.AverageRating,
+                CostForTwo = restaurantDto.CostForTwo,
+                ContactNumber = restaurantDto.ContactNumber,
+                RestaurantImage = restaurantDto.RestaurantImage,
+                EstimatedDeliveryTime = restaurantDto.EstimatedDeliveryTime,
+            };
+            return await _restaurantRepository.UpdateRestaurantAsync(restaurant);
+        }
 
-                if (restaurant == null)
-                {
-                    throw new InvalidOperationException("No restaurant found with this ID.");
-                }
+        // Delete a restaurant
+        public async Task<bool> DeleteRestaurantAsync(int id)
+        {
+            return await _restaurantRepository.DeleteRestaurantAsync(id);
+        }
 
-                _context.Restaurant.Remove(restaurant);
-                await _context.SaveChangesAsync();
-
-                return restaurant;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while deleting the restaurant.", ex);
-            }
+        // Check if restaurant is open
+        private bool IsRestaurantOpen(TimeSpan openingTime, TimeSpan closingTime)
+        {
+            var currentTime = DateTime.Now.TimeOfDay;
+            return currentTime >= openingTime && currentTime <= closingTime;
         }
     }
 };

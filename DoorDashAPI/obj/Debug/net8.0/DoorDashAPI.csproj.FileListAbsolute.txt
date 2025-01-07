@@ -519,3 +519,8 @@ D:\Coding Projects\DoorDash\backend\DoorDashAPI\obj\Debug\net8.0\ref\DoorDashAPI
 D:\Coding Projects\DoorDash\backend\DoorDashAPI\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\Coding Projects\DoorDash\backend\DoorDashAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\Coding Projects\DoorDash\backend\DoorDashAPI\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+D:\Coding Projects\DoorDash\backend\DoorDashAPI\obj\Debug\net8.0\DoorDashAPI.sourcelink.json
+D:\Coding Projects\DoorDash\backend\DoorDashAPI\bin\Debug\net8.0\DoorDashAPI.staticwebassets.endpoints.json
+D:\Coding Projects\DoorDash\backend\DoorDashAPI\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\Coding Projects\DoorDash\backend\DoorDashAPI\obj\Debug\net8.0\staticwebassets\msbuild.DoorDashAPI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+D:\Coding Projects\DoorDash\backend\DoorDashAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

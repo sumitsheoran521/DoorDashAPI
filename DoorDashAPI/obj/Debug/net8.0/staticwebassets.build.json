@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4jvInZt1yhdXzq89j7QrwNDyNaC7Bi5XxoOG/FyM6OY=",
+  "Hash": "7LkP3rv6ZFJqjYtwJLE1o8oXckJZf3fx4GH8w6js/Z0=",
   "Source": "DoorDashAPI",
   "BasePath": "_content/DoorDashAPI",
   "Mode": "Default",
@@ -15,5 +15,6 @@
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

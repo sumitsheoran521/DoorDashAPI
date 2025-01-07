@@ -22,8 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configurations\" />
-    <Folder Include="Repositories\" />
+    <Folder Include="wwwroot\images\dishes\" />
     <Folder Include="wwwroot\images\cuisines\" />
     <Folder Include="wwwroot\images\restaurants\" />
   </ItemGroup>

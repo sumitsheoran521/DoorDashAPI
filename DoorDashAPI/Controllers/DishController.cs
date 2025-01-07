@@ -1,35 +1,36 @@
-﻿using DoorDashAPI.Interfaces;
+﻿//using DoorDashAPI.DTOs;
+
+using DoorDashAPI.Interfaces;
 using DoorDashAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoorDashAPI.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
-    public class RestaurantController : ControllerBase
+    public class DishController : ControllerBase
     {
-        private readonly IRestaurantRepository _restaurant;
+        private readonly IDishesRepository _dishService;
 
-        public RestaurantController(IRestaurantRepository restaurant)
+        public DishController(IDishesRepository dishService)
         {
-            _restaurant = restaurant;
+            _dishService = dishService;
         }
 
-        // GET: api/Restaurant
+        // GET: api/Dish
         [HttpGet]
-        public async Task<ActionResult<Restaurant>> GetRestaurants()
+        public async Task<ActionResult<Dish>> GetDishes()
+
         {
             try
             {
-                var allRestaurants = await _restaurant.GetAllRestaurantAsync();
-
-                if (allRestaurants == null || !allRestaurants.Any())
+                var dish = await _dishService.GetDishAsync();
+                if (dish == null || !dish.Any())
                 {
-                    return NotFound("No restaurant available for this location");
+                    return NotFound("No dishes available");
                 }
 
-                return Ok(allRestaurants);
+                return Ok(dish);
             }
             catch (Exception ex)
             {
@@ -37,9 +38,9 @@ namespace DoorDashAPI.Controllers
             }
         }
 
-        // GET: api/Restaurant/id
+        // GET: api/Dish/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<Restaurant>> GetRestaurant(int id)
+        public async Task<ActionResult<Dish>> GetDishById(int id)
         {
             if (id <= 0)
             {
@@ -47,14 +48,14 @@ namespace DoorDashAPI.Controllers
             }
             try
             {
-                var restaurant = await _restaurant.GetRestaurantByIdAsync(id);
+                var dish = await _dishService.GetDishByIdAsync(id);
 
-                if (restaurant == null)
+                if (dish == null)
                 {
-                    return NotFound("Restaurant not found.");
+                    return NotFound("Dish not found.");
                 }
 
-                return Ok(restaurant);
+                return Ok(dish);
             }
             catch (Exception ex)
             {
@@ -62,14 +63,14 @@ namespace DoorDashAPI.Controllers
             }
         }
 
-        // POST: api/Restaurant
+        // POST: api/Dish
         [HttpPost]
-        public async Task<ActionResult<Restaurant>> AddRestaurant([FromBody] Restaurant restaurant)
+        public async Task<ActionResult<Dish>> AddDish([FromBody] Dish dish)
         {
             try
             {
-                var newRestaurant = await _restaurant.AddRestaurantAsync(restaurant);
-                return Ok(newRestaurant);
+                var newDish = await _dishService.AddDishAsync(dish);
+                return Ok(newDish);
             }
             catch (Exception ex)
             {
@@ -77,20 +78,20 @@ namespace DoorDashAPI.Controllers
             }
         }
 
-        // PUT: api/Restaurant/id
+        // PUT: api/Dish/id
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateRestaurant(int id, Restaurant restaurant)
+        public async Task<ActionResult<Dish>> UpdateDish(int id, Dish dish)
         {
             try
             {
-                if (id != restaurant.RestaurantId)
+                if (id != dish.DishId)
                 {
                     return BadRequest("ID mismatch");
                 }
-                var res = await _restaurant.UpdateRestaurantAsync(restaurant);
-                if (!res)
+                var updatedDish = await _dishService.UpdateDishAsync(dish);
+                if (!updatedDish)
                 {
-                    NotFound("Restaurant not found.");
+                    return NotFound("Dish not found");
                 }
                 return NoContent();
             }
@@ -100,9 +101,9 @@ namespace DoorDashAPI.Controllers
             }
         }
 
-        // DELETE: api/Restaurant
+        // DELETE: api/Dish/id
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Restaurant>> DeleteRestaurant(int id)
+        public async Task<ActionResult<Dish>> DeleteDish(int id)
         {
             if (id <= 0)
             {
@@ -110,8 +111,8 @@ namespace DoorDashAPI.Controllers
             }
             try
             {
-                var result = await _restaurant.DeleteRestaurantAsync(id);
-                if (!result)
+                var dish = await _dishService.DeleteDishAsync(id);
+                if (!dish)
                 {
                     return NotFound("Dish not found");
                 }

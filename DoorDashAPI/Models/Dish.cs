@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -10,7 +8,6 @@ public class Dish
 {
     [Key]
     public int DishId { get; set; }
-
     public int RestaurantId { get; set; } // for many to one relation
 
     [Required, StringLength(30)]

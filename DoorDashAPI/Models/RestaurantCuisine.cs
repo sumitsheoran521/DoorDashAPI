@@ -10,8 +10,6 @@ namespace DoorDashAPI.Models
         public int CuisineId { get; set; }
 
         public Restaurant? Restaurant { get; set; }
-
-        
         public Cuisine? Cuisine { get; set; }
     }
 }

@@ -1,15 +1,11 @@
-using DoorDashAPI.Interface;
+using DoorDashAPI.Configurations;
 using DoorDashAPI.Models;
-using DoorDashAPI.Service;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 builder.Services.AddDbContext<DoorDashContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConection")));
-// Add services to the container.
 
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(option => option.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
@@ -19,11 +15,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.WriteIndented = true;
 });
 
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-builder.Services.AddScoped<IRestaunrant, RestaurantService>();
+DependencyInjection.ConfigureServices(builder.Services);
 
 builder.Services.AddCors(option =>
 {
@@ -53,7 +47,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-
 
 app.Run();
