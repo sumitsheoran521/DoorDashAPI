@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DoorDashAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48f6c21814ef05e05266bc51c871076107ee63cf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+feb8aa60b22b290b0e9f61c63a79b181ad93104f")]
 [assembly: System.Reflection.AssemblyProductAttribute("DoorDashAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DoorDashAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
