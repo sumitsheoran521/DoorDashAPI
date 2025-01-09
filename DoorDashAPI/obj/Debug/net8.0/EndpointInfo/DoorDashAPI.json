@@ -5,6 +5,385 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Cuisine": {
+      "get": {
+        "tags": [
+          "Cuisine"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cuisine"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cuisine"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cuisine"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cuisine"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Cuisine/{id}": {
+      "get": {
+        "tags": [
+          "Cuisine"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cuisine"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "CuisineId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "CuisineName",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxLength": 75,
+              "minLength": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Restaurant.RestaurantId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Restaurant.Name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxLength": 50,
+              "minLength": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Restaurant.Area",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Restaurant.City",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxLength": 50,
+              "minLength": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Restaurant.State",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxLength": 25,
+              "minLength": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Restaurant.OpeningHour",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxLength": 50,
+              "minLength": 0,
+              "type": "string",
+              "format": "date-span"
+            }
+          },
+          {
+            "name": "Restaurant.ClosingHour",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxLength": 50,
+              "minLength": 0,
+              "type": "string",
+              "format": "date-span"
+            }
+          },
+          {
+            "name": "Restaurant.IsVeg",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Restaurant.IsOpen",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Restaurant.AverageRating",
+            "in": "query",
+            "schema": {
+              "maximum": 5,
+              "minimum": 0,
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "Restaurant.CostForTwo",
+            "in": "query",
+            "schema": {
+              "maxLength": 35,
+              "minLength": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Restaurant.RestaurantImage",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxLength": 255,
+              "minLength": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Restaurant.RestaurantLink",
+            "in": "query",
+            "schema": {
+              "maxLength": 255,
+              "minLength": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Restaurant.ContactNumber",
+            "in": "query",
+            "schema": {
+              "maxLength": 20,
+              "minLength": 0,
+              "type": "string",
+              "format": "tel"
+            }
+          },
+          {
+            "name": "Restaurant.EstimatedDeliveryTime",
+            "in": "query",
+            "schema": {
+              "maxLength": 20,
+              "minLength": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Restaurant.Dishes",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Dish"
+              }
+            }
+          },
+          {
+            "name": "Restaurant.Cuisines",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Cuisine"
+              }
+            }
+          },
+          {
+            "name": "RestaurantId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cuisine"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cuisine"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Dish": {
       "get": {
         "tags": [
@@ -268,24 +647,7 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Restaurant"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Restaurant"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Restaurant"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
@@ -308,24 +670,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Restaurant"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Restaurant"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Restaurant"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       },
@@ -386,24 +731,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Restaurant"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Restaurant"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Restaurant"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
@@ -425,13 +753,6 @@
             "maxLength": 75,
             "minLength": 0,
             "type": "string"
-          },
-          "restaurants": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Restaurant"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -445,10 +766,6 @@
         "type": "object",
         "properties": {
           "dishId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "restaurantId": {
             "type": "integer",
             "format": "int32"
           },
@@ -481,6 +798,10 @@
             "minimum": 0,
             "type": "number",
             "format": "double"
+          },
+          "restaurantId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -578,17 +899,17 @@
             "type": "string",
             "nullable": true
           },
-          "cuisines": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Cuisine"
-            },
-            "nullable": true
-          },
           "dishes": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Dish"
+            },
+            "nullable": true
+          },
+          "cuisines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Cuisine"
             },
             "nullable": true
           }

@@ -1,6 +1,4 @@
-﻿//using DoorDashAPI.DTOs;
-
-using DoorDashAPI.Interfaces;
+﻿using DoorDashAPI.Interfaces;
 using DoorDashAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +8,11 @@ namespace DoorDashAPI.Controllers
     [ApiController]
     public class DishController : ControllerBase
     {
-        private readonly IDishesRepository _dishService;
+        private readonly IDishesRepository _dishRepository;
 
-        public DishController(IDishesRepository dishService)
+        public DishController(IDishesRepository dishRepository)
         {
-            _dishService = dishService;
+            _dishRepository = dishRepository;
         }
 
         // GET: api/Dish
@@ -24,7 +22,7 @@ namespace DoorDashAPI.Controllers
         {
             try
             {
-                var dish = await _dishService.GetDishAsync();
+                var dish = await _dishRepository.GetDishAsync();
                 if (dish == null || !dish.Any())
                 {
                     return NotFound("No dishes available");
@@ -48,7 +46,7 @@ namespace DoorDashAPI.Controllers
             }
             try
             {
-                var dish = await _dishService.GetDishByIdAsync(id);
+                var dish = await _dishRepository.GetDishByIdAsync(id);
 
                 if (dish == null)
                 {
@@ -69,7 +67,7 @@ namespace DoorDashAPI.Controllers
         {
             try
             {
-                var newDish = await _dishService.AddDishAsync(dish);
+                var newDish = await _dishRepository.AddDishAsync(dish);
                 return Ok(newDish);
             }
             catch (Exception ex)
@@ -88,7 +86,7 @@ namespace DoorDashAPI.Controllers
                 {
                     return BadRequest("ID mismatch");
                 }
-                var updatedDish = await _dishService.UpdateDishAsync(dish);
+                var updatedDish = await _dishRepository.UpdateDishAsync(dish);
                 if (!updatedDish)
                 {
                     return NotFound("Dish not found");
@@ -111,7 +109,7 @@ namespace DoorDashAPI.Controllers
             }
             try
             {
-                var dish = await _dishService.DeleteDishAsync(id);
+                var dish = await _dishRepository.DeleteDishAsync(id);
                 if (!dish)
                 {
                     return NotFound("Dish not found");

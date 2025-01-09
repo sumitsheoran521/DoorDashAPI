@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DoorDashAPI.Models;
@@ -51,7 +48,6 @@ public record Restaurant
 
     [StringLength(20)]
     public string EstimatedDeliveryTime { get; set; } = string.Empty;
-
-    public IList<Cuisine>? Cuisines { get; set; }
     public ICollection<Dish>? Dishes { get; set; }
+    public ICollection<Cuisine>? Cuisines { get; set; }
 }

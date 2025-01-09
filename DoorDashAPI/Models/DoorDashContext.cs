@@ -16,7 +16,10 @@ namespace DoorDashAPI.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Restaurant>()
+                .HasMany(r => r.Dishes)
+                .WithOne(d => d.Restaurant)
+                .HasForeignKey(d => d.RestaurantId);
         }
     }
 }

@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 
 namespace DoorDashAPI.Models
 {
-    public class Cuisine
+    public record Cuisine
     {
-        public int CuisineId { get; set; }
+        [Key]
+        public int CuisineId { get; init; }
+
         [Required, StringLength(75)]
         public string? CuisineName { get; set; }
-        public IList<Restaurant>? Restaurants { get; set; }
+
+
+        [JsonIgnore]
+        public Restaurant? Restaurant { get; init; }
+
+        [JsonIgnore]
+        public int RestaurantId { get; init; }
+
     }
 }

@@ -1,11 +1,12 @@
 ﻿//using DoorDashAPI.DTOs;
 using DoorDashAPI.Interfaces;
 using DoorDashAPI.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace DoorDashAPI.Repositories
 {
-    public class RestaurantRepository:IRestaurantRepository
+    public class RestaurantRepository : IRestaurantRepository
     {
         private readonly DoorDashContext _context;
         public RestaurantRepository(DoorDashContext context)
@@ -15,36 +16,37 @@ namespace DoorDashAPI.Repositories
 
         public async Task<IEnumerable<Restaurant>> GetAllRestaurantAsync()
         {
-            var restaurants = await _context.Restaurant.ToListAsync();
+            var restaurants = await _context.Restaurant.Include(r => r.Cuisines).ToListAsync();
             return restaurants;
         }
 
         public async Task<Restaurant> GetRestaurantByIdAsync(int id)
         {
-            var data = await _context.Restaurant.FindAsync(id);
+            var data = await _context.Restaurant.Include(r => r.Dishes).Include(r => r.Cuisines).FirstOrDefaultAsync(r => r.RestaurantId == id);
             return data!;
         }
 
-        public async Task<Restaurant> AddRestaurantAsync(Restaurant restaurant)
+        public async Task AddRestaurantAsync(Restaurant restaurant)
         {
             await _context.Restaurant.AddAsync(restaurant);
-            _context.SaveChanges();
-            return restaurant;
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> UpdateRestaurantAsync(Restaurant restaurant)
+        public async Task UpdateRestaurantAsync(Restaurant restaurant)
         {
             _context.Restaurant.Update(restaurant);
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteRestaurantAsync(int id)
+        public async Task DeleteRestaurantAsync(int id)
         {
             var restaurant = await GetRestaurantByIdAsync(id);
-            if (restaurant == null) return false;
+            if (restaurant != null)
+            {
+                _context.Restaurant.Remove(restaurant);
+                await _context.SaveChangesAsync();
 
-            _context.Restaurant.Remove(restaurant);
-            return await _context.SaveChangesAsync() > 0;
+            }
 
         }
     }

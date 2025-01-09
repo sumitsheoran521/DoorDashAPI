@@ -20,7 +20,7 @@ namespace DoorDashAPI.Repositories
 
         public async Task<Dish> GetDishByIdAsync(int id)
         {
-            var dish = await _context.Dish.FindAsync(id);
+            var dish = await _context.Dish.FirstOrDefaultAsync(d => d.DishId == id);
             return dish!;
         }
 
